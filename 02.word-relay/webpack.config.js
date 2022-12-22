@@ -1,4 +1,5 @@
 const path = require('path');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -23,12 +24,22 @@ module.exports = {
           }],
           '@babel/preset-react'
         ],
+        plugins: ['react-refresh/babel',]
       },
     }]
   },
+  plugins: [
+    new RefreshWebpackPlugin(),
+  ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'app.jss'
+    filename: 'app.js',
+    publicPath: '/dist/',
   },
+  devServer: {
+    devMiddleware: { publicPath: '/dist/' }, // 결과물 저장
+    static: { directory: path.resolve(__dirname) },
+    hot: true, // 변경 점을 체크 결과물을 수정
+  }
 
 }

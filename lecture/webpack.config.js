@@ -15,14 +15,22 @@ module.exports = {
 
   module: {
     rules: [{
-      test: /\.jsx?/, // 정규표현식
+      test: /\.jsx?/,
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env', '@babel/preset-react'],
+        presets: [
+          ['@babel/preset-env', {
+            targets: {
+              browsers: ['> 5% in KR'],
+            },
+            debug: true,
+          }],
+          '@babel/preset-react'
+        ],
       },
-    }],
+    }]
   },
-
+  plugins: [],
   output: {
     path: path.join(__dirname, 'dist'), // __dirname: 현재 폴더 경로,
     filename: 'app.js',
