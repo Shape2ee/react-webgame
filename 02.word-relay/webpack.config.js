@@ -41,5 +41,4 @@ module.exports = {
     static: { directory: path.resolve(__dirname) },
     hot: true, // 변경 점을 체크 결과물을 수정
   }
-
 }
