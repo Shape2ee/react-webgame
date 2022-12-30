@@ -40,7 +40,7 @@ module.exports = {
     filename: 'app.js',
   }, // 출력
   devServer: {
-    devMiddleware: { phublick: '/dist/', },
+    devMiddleware: { publicPath: '/dist/', },
     static: { directory: path.resolve(__dirname), },
     hot: true,
   }
