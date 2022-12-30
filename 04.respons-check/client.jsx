@@ -1,6 +1,6 @@
-const React = require('react');
-const ReactDom = require('react-dom');
+import React from 'react';
+import ReactDom from 'react-dom';
 
-const ResponseCheck = require('./ResponseCheck'); // WordRelay 불러오기
+import ResponseCheck from './ResponseCheck'; // WordRelay 불러오기
 
 ReactDom.render(<ResponseCheck />, document.querySelector('#root'));
