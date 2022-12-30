@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Try from './Try';
 
 function getNumbers() {
@@ -12,7 +12,7 @@ function getNumbers() {
   return arr;
 }
 
-class NumberBaseball extends Component {
+class NumberBaseball extends PureComponent {
   state = {
     result: '',
     value: '',
