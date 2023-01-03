@@ -1,6 +1,6 @@
-const React = require('react');
-const ReactDom = require('react-dom');
+import React from 'react';
+import ReactDom from 'react-dom';
 
-const WordRelay = require('./WordRelay'); // WordRelay 불러오기
+import RSP from './RSP';
 
-ReactDom.render(<WordRelay />, document.querySelector('#root'));
+ReactDom.render(<RSP />, document.querySelector('#root'));
