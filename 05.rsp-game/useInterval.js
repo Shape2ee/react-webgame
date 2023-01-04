@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 
+// const [ isRunnig, setIsRunning ] = useState(true)
 // useInterval(() => {
 //   console.log('hello');
 // }, isRunning ? 1000 : null);

@@ -36,8 +36,6 @@ const RSP = () => {
   // }, [imgCoord])
   const [ isRunning, setIsRunning ] = useState(true);
 
-  useInterval(changeHand, isRunning ? 100 : null);
-
   const changeHand = () => {
     if (imgCoord === rspCoords.rock) {
       setImgCoord(rspCoords.scissor);
@@ -48,9 +46,12 @@ const RSP = () => {
     }
   }
 
+  useInterval(changeHand, isRunning ? 100 : null);
+
+
   const onClickBtn = (choice) => () => {
     if(isRunning) {
-      clearInterval(interval.current);
+      // clearInterval(interval.current);
       setIsRunning(false)
       const myScore = scores[choice];
       const computerScore = scores[computerChoice(imgCoord)];
@@ -64,7 +65,7 @@ const RSP = () => {
         setResult('졌습니다.');
         setScore((prevScore) => prevScore - 1);
       }
-      timeout.current = setTimeout(() => {
+      setTimeout(() => {
         setIsRunning(true)
       }, 2000)
     }
