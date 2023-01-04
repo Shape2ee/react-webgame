@@ -1,6 +1,6 @@
 const React = require('react');
-const ReactDom = require('react-dom')
+const ReactDOM = require('react-dom/clinet');
 
-const Gugudan = require("./Gugudan")
+const Gugudan = require("./Gugudan");
 
-ReactDom.render(<Gugudan />, document.querySelector("#root"))
+ReactDOM.createRoot(document.querySelector('#root')).render(<Gugudan />);

@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import NumberBaseball from './NumberBaseball'; // WordRelay 불러오기
 
-ReactDom.render(<NumberBaseball />, document.querySelector('#root'));
+ReactDOM.createRoot(document.querySelector('#root')).render(<NumberBaseball />);

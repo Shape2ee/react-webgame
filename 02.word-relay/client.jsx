@@ -1,6 +1,6 @@
 const React = require('react');
-const ReactDom = require('react-dom');
+const ReactDOM = require('react-dom/clinet');
 
-const WordRelay = require('./WordRelay')
+const WordRelay = require('./WordRelay');
 
-ReactDom.render(<WordRelay />, document.querySelector('#root'))
+ReactDOM.createRoot(document.querySelector('#root')).render(<WordRelay />);

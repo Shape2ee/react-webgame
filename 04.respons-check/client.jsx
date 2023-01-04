@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import ResponseCheck from './ResponseCheck'; // WordRelay 불러오기
 
-ReactDom.render(<ResponseCheck />, document.querySelector('#root'));
+ReactDOM.createRoot(document.query).render(<ResponseCheck />, document.querySelector('#root'));
