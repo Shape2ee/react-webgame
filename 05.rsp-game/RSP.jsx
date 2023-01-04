@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import useInterval from './useInterval';
 
 const rspCoords = {
   rock: '0',
@@ -23,16 +24,19 @@ const RSP = () => {
   const [ result, setResult ] = useState('');
   const [ imgCoord, setImgCoord ] = useState('0');
   const [ score, setScore ] = useState(0);
-  const [ clickable, setClickable ]  = useState(true);
-  const interval = useRef(null);
-  const timeout = useRef(null);
+  // const [ clickable, setClickable ]  = useState(true);
+  // const interval = useRef(null);
+  // const timeout = useRef(null);
 
-  useEffect(() => {
-    interval.current = setInterval(changeHand, 100)
-    return () => {
-      clearInterval(interval.current);
-    }
-  }, [imgCoord])
+  // useEffect(() => {
+  //   interval.current = setInterval(changeHand, 100)
+  //   return () => {
+  //     clearInterval(interval.current);
+  //   }
+  // }, [imgCoord])
+  const [ isRunning, setIsRunning ] = useState(true);
+
+  useInterval(changeHand, isRunning ? 100 : null);
 
   const changeHand = () => {
     if (imgCoord === rspCoords.rock) {
@@ -45,10 +49,9 @@ const RSP = () => {
   }
 
   const onClickBtn = (choice) => () => {
-    if(clickable) {
+    if(isRunning) {
       clearInterval(interval.current);
-      setClickable(false);
-      console.log(clickable)
+      setIsRunning(false)
       const myScore = scores[choice];
       const computerScore = scores[computerChoice(imgCoord)];
       const diff = myScore - computerScore;
@@ -62,8 +65,7 @@ const RSP = () => {
         setScore((prevScore) => prevScore - 1);
       }
       timeout.current = setTimeout(() => {
-        setClickable(true)
-        interval.current = setInterval(changeHand, 100)
+        setIsRunning(true)
       }, 2000)
     }
   }
