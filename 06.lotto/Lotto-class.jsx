@@ -70,7 +70,6 @@ class Lotto extends Component {
       redo: false,
     })
     this.timeouts = [];
-
   }
 
   render() {
