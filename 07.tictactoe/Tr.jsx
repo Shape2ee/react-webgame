@@ -2,7 +2,9 @@ import React from 'react';
 import Td from './Td';
 
 const Tr = () => {
-  <Td>{''}</Td>
+  <tr>
+    <Td>{''}</Td>
+  </tr>
 }
 
 export default Tr;

@@ -1,7 +1,7 @@
 const path = require('path'); // 경로를 쉽게 설정하기 위함
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 module.exports = {
-  name: 'word-relay-setting',
+  name: 'tictactoe',
   mode: 'development', // 개발용, 실서비스에서는 production
   devtool: 'eval', // 빠르게
   resolve: {
