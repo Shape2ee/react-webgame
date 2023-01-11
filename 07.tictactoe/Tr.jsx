@@ -1,10 +1,12 @@
-import React from 'react';
-import Td from './Td';
+import React from "react";
+import Td from './Td'
 
-const Tr = () => {
-  <tr>
-    <Td>{''}</Td>
-  </tr>
+const Tr = ({ rowData }) => {
+  return (
+    <tr>
+      {Array(rowData.length).fill().map((td, i) => (<Td key={`td` + i} />))}
+    </tr>
+  )
 }
 
-export default Tr;
+export default Tr

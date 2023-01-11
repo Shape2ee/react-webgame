@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback } from 'react';
 import Table from './Table';
 
 const initialState = {
@@ -19,7 +19,6 @@ const reducer = (state, action) => {
   }
 }
 
-
 const TicTacToe = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
@@ -33,7 +32,7 @@ const TicTacToe = () => {
 
   return (
     <>
-      <Table  onClick={onClickTable} />
+      <Table onClick={onClickTable} tableData={state.tableData} />
       {state.winner && <div>{state.winner}님의 승리</div>}
     </>
   )
