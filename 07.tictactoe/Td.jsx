@@ -1,7 +1,16 @@
-import React from "react";
-const Td = () => {
+import React, { useCallback } from "react";
+import { CLICK_CELL, CHANGE_TURN } from "./Tictactoe";
+
+const Td = ({ rowIndex, cellIndex, cellData, dispatch }) => {
+  const onClickTd = useCallback(() => {
+    console.log(rowIndex, cellIndex);
+    dispatch({ type: CLICK_CELL, row: rowIndex, cell: cellData })
+    dispatch({ type: CHANGE_TURN })
+  }, [])
+
   return (
-    <td>{''}</td>
+    <td onClick={onClickTd}>{cellData}</td>
   )
 }
+
 export default Td;
