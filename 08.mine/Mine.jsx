@@ -13,12 +13,22 @@ export const CODE = {
   OPENED: 0, // 0 이상이면 open
 }
 
+export const START_GAME = 'START_GAME';
+export const OPEN_CELL = 'OPEN_CELL';
+export const CLICK_MINE = 'CLICK_MINE';
+
 export const TableContext = createContext({
   tableData: [],
+  halted: true,
   dispatch: () => {},
 })
 
-export const START_GAME = 'START_GAME';
+const initialState = {
+  tableData: [],
+  timer: 0,
+  halted: true,
+  result: '',
+}
 
 const plantMine = (row, cell, mine) => {
   console.log(row, cell, mine);
@@ -50,18 +60,34 @@ const plantMine = (row, cell, mine) => {
   return data;
 }
 
-const initialState = {
-  tableData: [],
-  timer: 0,
-  result: '',
-}
-
 const reducer = (state, action) => {
   switch(action.type) {
     case START_GAME: {
       return {
         ...state,
-        tableData: plantMine(action.row, action.cell, action.mine)
+        halted: false,
+        tableData: plantMine(action.row, action.cell, action.mine),
+      }
+    }
+    case OPEN_CELL: {
+      const tableDate = [...state.tableData];
+      tableDate[action.row] = [...state.tableData[action.row]];
+      tableDate[action.row][action.cell] = CODE.OPENED;
+      console.log(tableDate)
+      return {
+        ...state,
+        tableDate,
+      }
+    }
+    case CLICK_MINE: {
+      const tableDate = [...state.tableData];
+      tableDate[action.row] = [...state.tableData[action.row]];
+      tableDate[action.row][action.cell] = CODE.CLICKED_MINE;
+      console.log(tableDate)
+      return {
+        ...state,
+        tableDate,
+        halted: true,
       }
     }
     default :
@@ -71,8 +97,8 @@ const reducer = (state, action) => {
 
 const Mine = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { tableData, timer, result } = state;
-  const value = useMemo(() => ({ tableData: tableData, dispatch }), [tableData])
+  const { tableData, timer, result, halted } = state;
+  const value = useMemo(() => ({ tableData: tableData, halted, dispatch, }), [tableData, halted])
   console.log(value);
 
   return (
