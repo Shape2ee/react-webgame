@@ -7,7 +7,11 @@ const Tr = ({ rowIndex }) => {
 
   return (
     <tr>
-      {tableData[0] && Array(tableData[0].length).fill().map((td, i) => <Td key={`td${i}`} rowIndex={rowIndex} cellIndex={i} />)}
+      {
+        tableData[0]
+        && Array(tableData[0].length).fill().map((td, i) => {
+            return <Td key={`td${i}`} rowIndex={rowIndex} cellIndex={i} />
+          })}
     </tr>
   )
 };

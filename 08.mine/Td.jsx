@@ -68,7 +68,7 @@ const Td = ({ rowIndex, cellIndex }) => {
         dispatch({ type: CLICK_MINE, row: rowIndex, cell: cellIndex });
         return;
     }
-    console.log(tableData)
+    console.log(tableData[rowIndex][cellIndex])
   }, []);
   
   

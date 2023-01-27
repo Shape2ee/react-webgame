@@ -70,23 +70,21 @@ const reducer = (state, action) => {
       }
     }
     case OPEN_CELL: {
-      const tableDate = [...state.tableData];
-      tableDate[action.row] = [...state.tableData[action.row]];
-      tableDate[action.row][action.cell] = CODE.OPENED;
-      console.log(tableDate)
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      tableData[action.row][action.cell] = CODE.OPENED;
       return {
         ...state,
-        tableDate,
+        tableData,
       }
     }
     case CLICK_MINE: {
-      const tableDate = [...state.tableData];
-      tableDate[action.row] = [...state.tableData[action.row]];
-      tableDate[action.row][action.cell] = CODE.CLICKED_MINE;
-      console.log(tableDate)
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      tableData[action.row][action.cell] = CODE.CLICKED_MINE;
       return {
         ...state,
-        tableDate,
+        tableData,
         halted: true,
       }
     }
