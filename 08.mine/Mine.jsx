@@ -16,6 +16,9 @@ export const CODE = {
 export const START_GAME = 'START_GAME';
 export const OPEN_CELL = 'OPEN_CELL';
 export const CLICK_MINE = 'CLICK_MINE';
+export const FLAG_CELL = 'FLAG_CELL';
+export const QUESTION_CELL = 'QUESTION_CELL';
+export const NORMALIZE_CELL = 'NORMALIZE_CELL';
 
 export const TableContext = createContext({
   tableData: [],
@@ -88,6 +91,45 @@ const reducer = (state, action) => {
         halted: true,
       }
     }
+    case FLAG_CELL: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      if (tableData[action.row][action.cell] === CODE.MINE) {
+        tableData[action.row][action.cell] = CODE.FLAG_MINE;
+      } else {
+        tableData[action.row][action.cell] = CODE.FLAG;
+      }
+      return {
+        ...state,
+        tableData,
+      }
+    }
+    case QUESTION_CELL: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      if (tableData[action.row][action.cell] === CODE.FLAG_MINE) {
+        tableData[action.row][action.cell] = CODE.QUESTION_MINE;
+      } else {
+        tableData[action.row][action.cell] = CODE.QUESTION;
+      }
+      return {
+        ...state,
+        tableData,
+      }
+    }
+    case NORMALIZE_CELL: {
+      const tableData = [...state.tableData];
+      tableData[action.row] = [...state.tableData[action.row]];
+      if (tableData[action.row][action.cell] === CODE.QUESTION_MINE) {
+        tableData[action.row][action.cell] = CODE.MINE;
+      } else {
+        tableData[action.row][action.cell] = CODE.NORMAL;
+      }
+      return {
+        ...state,
+        tableData,
+      }
+    }
     default :
       return state
   }
@@ -96,7 +138,7 @@ const reducer = (state, action) => {
 const Mine = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { tableData, timer, result, halted } = state;
-  const value = useMemo(() => ({ tableData: tableData, halted, dispatch, }), [tableData, halted])
+  const value = useMemo(() => ({ tableData, halted, dispatch, }), [tableData, halted])
   console.log(value);
 
   return (
