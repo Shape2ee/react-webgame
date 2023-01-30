@@ -28,6 +28,12 @@ export const TableContext = createContext({
 
 const initialState = {
   tableData: [],
+  data: {
+    row: 0,
+    cell: 0,
+    mine: 0,
+  },
+  openedCount: 0,
   timer: 0,
   halted: true,
   result: '',
@@ -68,6 +74,12 @@ const reducer = (state, action) => {
     case START_GAME: {
       return {
         ...state,
+        data: {
+          row: action.row,
+          cell: action.cell,
+          mine: action.mine,
+        },
+        openedCount: 0,
         halted: false,
         tableData: plantMine(action.row, action.cell, action.mine),
       }
@@ -79,7 +91,6 @@ const reducer = (state, action) => {
       });
       const checked = [];
       let openedCount = 0;
-      console.log(tableData.length, tableData[0].length);
       const checkAround = (row, cell) => {
         console.log(row, cell);
         if (row < 0 || row >= tableData.length || cell < 0 || cell >= tableData[0].length) {
@@ -133,9 +144,19 @@ const reducer = (state, action) => {
         tableData[row][cell] = count;
       };
       checkAround(action.row, action.cell);
+      let halted = false;
+      let result = '';
+      console.log(state.data.row, state.data.cell, state.data.mine, state.openedCount, openedCount);
+      if (state.data.row * state.data.cell - state.data.mine === state.openedCount + openedCount) {
+        halted = true;
+        result = `승리하셨습니다.`
+      }
       return {
         ...state,
         tableData,
+        openedCount: state.openedCount + openedCount,
+        halted,
+        result,
       }
     }
     case CLICK_MINE: {
