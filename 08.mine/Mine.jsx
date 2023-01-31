@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useMemo } from 'react';
+import React, { useReducer, createContext, useMemo, useEffect } from 'react';
 import Table from './Table';
 import Form from './Form';
 
@@ -19,6 +19,8 @@ export const CLICK_MINE = 'CLICK_MINE';
 export const FLAG_CELL = 'FLAG_CELL';
 export const QUESTION_CELL = 'QUESTION_CELL';
 export const NORMALIZE_CELL = 'NORMALIZE_CELL';
+export const INCREMENT_TIMER = 'INCREMENT_TIMER';
+
 
 export const TableContext = createContext({
   tableData: [],
@@ -79,6 +81,7 @@ const reducer = (state, action) => {
           cell: action.cell,
           mine: action.mine,
         },
+        timer: 0,
         openedCount: 0,
         halted: false,
         tableData: plantMine(action.row, action.cell, action.mine),
@@ -149,7 +152,7 @@ const reducer = (state, action) => {
       console.log(state.data.row, state.data.cell, state.data.mine, state.openedCount, openedCount);
       if (state.data.row * state.data.cell - state.data.mine === state.openedCount + openedCount) {
         halted = true;
-        result = `승리하셨습니다.`
+        result = `${state.timer}초만에 승리하셨습니다.`
       }
       return {
         ...state,
@@ -208,6 +211,12 @@ const reducer = (state, action) => {
         tableData,
       }
     }
+    case INCREMENT_TIMER: {
+      return {
+        ...state,
+        timer: state.timer + 1,
+      }
+    }
     default :
       return state
   }
@@ -217,7 +226,18 @@ const Mine = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { tableData, timer, result, halted } = state;
   const value = useMemo(() => ({ tableData, halted, dispatch, }), [tableData, halted])
-  console.log(value);
+
+  useEffect(() => {
+    let timer;
+    if(!halted) {
+      timer = setInterval(() => {
+        dispatch({ type: INCREMENT_TIMER })
+      }, 1000)
+    }
+    return () => {
+      clearInterval(timer)
+    }
+  }, [halted])
 
   return (
     <TableContext.Provider value={value}>
